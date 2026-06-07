@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <title>નવોદય ઓનલાઈન એજ્યુકેશન સિસ્ટમ</title>
+    <style>
+        :root { 
+            --primary-color: #0b4570; 
+            --primary-dark: #083354; 
+            --accent-color: #e67e22; 
+            --live-color: #d63031; 
+            --whatsapp-color: #25D366; 
+            --pdf-color: #3498db;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #eef4fb; }
+        
+        header { background-color: var(--primary-color); color: white; text-align: center; padding: 2rem 1rem; }
+        
+        /* --- નેવિગેશન મેનુ --- */
+        nav { background-color: var(--primary-dark); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        nav ul { list-style-type: none; display: flex; justify-content: center; padding: 10px 0; flex-wrap: wrap; }
+        nav ul li button { background: none; border: none; color: white; padding: 10px 15px; cursor: pointer; font-size: 1rem; font-weight: bold; }
+        nav ul li button:hover, nav ul li button.active { background-color: var(--accent-color); border-radius: 5px; }
+        
+        /* --- News Bar --- */
+        .news-bar { background-color: #fff3cd; color: #856404; padding: 10px; text-align: center; font-weight: bold; border-bottom: 1px solid #ffeeba; }
+        
+        /* --- લેઆઉટ રેપર --- */
+        .layout-wrapper { display: flex; max-width: 1200px; margin: 2rem auto; padding: 0 1rem; gap: 25px; align-items: flex-start; }
+        .main-content { flex: 1; min-height: 50vh; }
+        
+        /* --- સાઇડની જાહેરાત --- */
+        .sidebar-ad { width: 320px; position: sticky; top: 70px; }
+        .ad-card { background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; border: 3px solid var(--live-color); animation: pulse-border 2s infinite; }
+        .ad-card img { width: 100%; border-radius: 8px; margin-bottom: 15px; }
+        @keyframes pulse-border { 0% { border-color: #d63031; } 50% { border-color: #ff7675; } 100% { border-color: #d63031; } }
+
+        /* --- કન્ટેન્ટ બોક્સ સ્ટાઈલ --- */
+        .content-section { display: none; animation: fadeIn 0.5s; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .content-box { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 1.5rem;}
+        
+        /* --- મટીરિયલ મેનેજમેન્ટ ડિઝાઇન --- */
+        .material-group { margin-top: 20px; margin-bottom: 30px; }
+        .material-group h3 { color: var(--primary-dark); border-left: 4px solid var(--accent-color); padding-left: 10px; margin-bottom: 15px; font-size: 1.2rem; }
+        .material-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        
+        .material-card { background: #f8f9fa; border: 1px solid #e9ecef; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .material-card h4 { font-size: 1rem; color: #333; margin-bottom: 12px; }
+        
+        /* બટન્સ કલર */
+        .btn { padding: 10px 20px; border-radius: 50px; text-decoration: none; color: white; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; font-size: 0.9rem; }
+        .btn-live { background-color: var(--live-color); }
+        .btn-contact { background-color: var(--accent-color); }
+        .btn-whatsapp { background-color: var(--whatsapp-color); }
+        .btn-pdf { background-color: var(--pdf-color); width: 100%; justify-content: center; border-radius: 5px; }
+        .btn-video { background-color: #5758bb; width: 100%; justify-content: center; border-radius: 5px; }
+
+        .home-action-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 1.5rem; }
+
+        /* --- 🌟 યુનિક સંપર્ક વિભાગ સ્ટાઇલ (નવું) 🌟 --- */
+        .contact-card {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+            margin-bottom: 2rem;
+        }
+        .profile-avatar {
+            width: 90px; height: 90px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 2.5rem;
+            display: inline-flex;
+            align-items: center; justify-content: center;
+            border-radius: 50px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(11, 69, 112, 0.3);
+        }
+        .contact-info-title { font-size: 1.8rem; color: var(--primary-dark); margin-bottom: 5px; }
+        .contact-subtitle { color: #555; font-size: 1rem; margin-bottom: 15px; font-weight: 500; }
+        
+        .phone-badge {
+            display: inline-flex;
+            align-items: center;
+            background: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            color: var(--live-color);
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid #e1e8ed;
+        }
+
+        /* ઇન્કવાયરી ફોર્મ */
+        .enquiry-form { margin-top: 2rem; border-top: 2px dashed #ccc; padding-top: 2rem; text-align: left; }
+        .enquiry-form h3 { color: var(--primary-color); margin-bottom: 1.5rem; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #444; font-size: 0.95rem; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; outline: none; transition: 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 8px rgba(11,69,112,0.1); }
+        .btn-submit { background-color: var(--primary-color); color: white; width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { background-color: var(--primary-dark); }
+
+        /* ફૂટર */
+        footer { text-align: center; padding: 1.5rem; background-color: var(--primary-dark); color: white; margin-top: 3rem; font-size: 0.95rem; border-top: 3px solid var(--accent-color); }
+
+        /* મોબાઇલ રિસ્પોન્સિવ */
+        @media (max-width: 850px) {
+            .layout-wrapper { flex-direction: column; }
+            .sidebar-ad { width: 100%; position: static; margin-top: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>નવોદય ઓનલાઈન એજ્યુકેશન સિસ્ટમ</h1>
+        <p>જવાહર નવોદય વિદ્યાલય પ્રવેશ પરીક્ષા માટે શ્રેષ્ઠ માર્ગદર્શન</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><button class="nav-btn active" onclick="openTab('home', this)">🏠 હોમ</button></li>
+            <li><button class="nav-btn" onclick="openTab('aakruti', this)">🔺 આકૃતિ</button></li>
+            <li><button class="nav-btn" onclick="openTab('ganit', this)">🧮 ગણિત</button></li>
+            <li><button class="nav-btn" onclick="openTab('gujarati', this)">📜 ગુજરાતી</button></li>
+            <li><button class="nav-btn" onclick="openTab('mock-test', this)">📝 મોક ટેસ્ટ</button></li>
+            <li><button class="nav-btn" onclick="openTab('contact', this)">📞 સંપર્ક</button></li>
+        </ul>
+    </nav>
+
+    <div class="news-bar">
+        <marquee>📢 શેડ્યુલ: દરરોજ સવારે ૮:૦૦ થી ૧૦:૦૦ અને સાંજે ૬:૦０ થી ૮:૦૦ લાઈવ ક્લાસ! | મોક ટેસ્ટ દર રવિવારે!</marquee>
+    </div>
+
+    <div class="layout-wrapper">
+        
+        <div class="main-content">
+        
+            <div id="home" class="content-section active">
+                <div class="content-box">
+                    <h2 style="text-align: center; color: var(--primary-color);">સ્વાગત છે વિદ્યાર્થી મિત્રો!</h2>
+                    <p style="text-align: center; margin-top: 10px;">નવોદય પ્રવેશ પરીક્ષાની તૈયારી માટે આજે જ જોડાઈ જાઓ.</p>
+                    <div class="home-action-buttons">
+                        <a href="https://zoom.us/join" target="_blank" class="btn btn-live">🔴 લાઈવ ક્લાસ</a>
+                        <button class="btn btn-contact" onclick="openTab('contact', document.querySelectorAll('.nav-btn')[5])">📞 સંપર્ક કરો</button>
+                        <a href="https://chat.whatsapp.com/YOUR_LINK" target="_blank" class="btn btn-whatsapp">💬 WhatsApp</a>
+                    </div>
+                </div>
+   <div class="ad-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaWBYrM4TdVp4mfuA-l5bcFxckWsdsJG8dUA&s" alt="નવોદય ક્લાસ જાહેરાત">
+                <h3 style="color: var(--primary-dark); margin-bottom: 5px;">એડમિશન ઓપન (2026-27)</h3>
+                <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">ધોરણ ૪ અને ૫ ના વિદ્યાર્થીઓ માટે પ્રવેશ પ્રક્રિયા ચાલુ છે.</p>
+                <a href="https://chat.whatsapp.com/YOUR_LINK" target="_blank" class="btn btn-live" style="width: 100%; justify-content: center;">હમણાં જ રજીસ્ટ્રેશન કરાવો!</a>
+            </div>
+            </div>
+            
+            <div id="aakruti" class="content-section">
+                <div class="content-box">
+                    <h2>🔺 આકૃતિ (માનસિક યોગ્યતા કસોટી)</h2>
+                    <div class="material-group">
+                        <h3>📄 PDF મટીરિયલ અને નોટ્સ</h3>
+                        <div class="material-grid">
+                            <div class="material-card">
+                                  <h4>આકૃતિ પ્રકરણ - ૧ નોટ્સ</h4>
+                                <a href="તમારી-પીડીએફ-લિંક-૧" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ PDF</a>
+                                   <h4>આકૃતિ પ્રકરણ - 2 નોટ્સ</h4>
+                                <a href="તમારી-પીડીએફ-લિંક-૧" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ PDF</a>
+ <h4>આકૃતિ પ્રકરણ - 3 નોટ્સ</h4>
+                                <a href="તમારી-પીડીએફ-લિંક-૧" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ PDF</a>
+ <h4>આકૃતિ પ્રકરણ - 4 નોટ્સ</h4>
+                                <a href="તમારી-પીડીએફ-લિંક-૧" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ PDF</a>
+                            </div>
+                            <div class="material-card">
+                                <h4>આકૃતિ પ્રેક્ટિસ વર્કશીટ</h4>
+                                <a href="તમારી-પીડીએફ-લિંક-૨" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ PDF</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="material-group">
+                        <h3>🎥 વિડીયો લેક્ચર્સ</h3>
+                        <div class="material-grid">
+                            <div class="material-card">
+                                <h4>ભાગ ૧: બેઝિક આકૃતિ સમજૂતી</h4>
+                                <a href="તમારી-યુટ્યુબ-લિંક-૧" target="_blank" class="btn btn-video">▶️ વિડિયો જુઓ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ganit" class="content-section">
+                <div class="content-box">
+                    <h2>🧮 ગણિત (અંકગણિત કસોટી)</h2>
+                    <div class="material-group">
+                        <h3>📄 PDF મટીરિયલ અને નોટ્સ</h3>
+                        <div class="material-grid">
+                            <div class="material-card">
+                                <h4>ગણિત પ્રકરણ - ૧ સૂત્રો</h4>
+                                <a href="લિંક" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ PDF</a>
+ <h4>ગણિત પ્રકરણ - 2 </h4>
+                                <a href="લિંક" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ PDF</a>
+ <h4>ગણિત પ્રકરણ - 3 </h4>
+                                <a href="લિંક" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ PDF</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="material-group">
+                        <h3>🎥 વિડીયો લેક્ચર્સ</h3>
+                        <div class="material-grid">
+                            <div class="material-card">
+                                <h4>પ્રકરણ ૧: સંખ્યા પદ્ધતિ</h4>
+                                <a href="લિંક" target="_blank" class="btn btn-video">▶️ વિડિયો જુઓ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gujarati" class="content-section">
+                <div class="content-box">
+                    <h2>📜 ગુજરાતી (ભાષા કસોટી)</h2>
+                    <div class="material-group">
+                        <h3>📄 પ્રેક્ટિસ ફકરા (PDF)</h3>
+                        <div class="material-grid">
+                            <div class="material-card">
+                                <h4>ગુજરાતી ૧ ફકરા સેટ</h4>
+                                <a href="લિંક" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ PDF</a>
+ <h4>ગુજરાતી 2 ફકરા સેટ</h4>
+                                <a href="લિંક" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ PDF</a>
+ <h4>ગુજરાતી 3 ફકરા સેટ</h4>
+                                <a href="લિંક" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ PDF</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mock-test" class="content-section">
+                <div class="content-box">
+                    <h2>📝 મોક ટેસ્ટ અને પ્રશ્નપત્રો</h2>
+                    <div class="material-group">
+                        <h3>📋 રવિવાર સ્પેશિયલ મોક ટેસ્ટ</h3>
+                        <div class="material-grid">
+                            <div class="material-card">
+                                <h4>મોક ટેસ્ટ પેપર - ૧ (OMR સાથે)</h4>
+                                <a href="લિંક" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ પેપર</a>
+ <h4>મોક ટેસ્ટ પેપર - ૧ (OMR સાથે)</h4>
+                                <a href="લિંક" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ પેપર</a>
+ <h4>મોક ટેસ્ટ પેપર - ૧ (OMR સાથે)</h4>
+                                <a href="લિંક" target="_blank" class="btn btn-pdf">⬇️ ડાઉનલોડ પેપર</a>
+                            </div>
+                            <div class="material-card">
+                                <h4>ઓનલાઇન ક્વિઝ ટેસ્ટ - ૧</h4>
+                                <a href="લિંક" target="_blank" class="btn btn-video" style="background:#8e44ad;">📝 ટેસ્ટ આપો</a>
+<h4>ઓનલાઇન ક્વિઝ ટેસ્ટ - ૧</h4>
+                                <a href="લિંક" target="_blank" class="btn btn-video" style="background:#8e44ad;">📝 ટેસ્ટ આપો</a>
+<h4>ઓનલાઇન ક્વિઝ ટેસ્ટ - ૧</h4>
+                                <a href="લિંક" target="_blank" class="btn btn-video" style="background:#8e44ad;">📝 ટેસ્ટ આપો</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="contact" class="content-section">
+                <div class="content-box" style="padding: 1.5rem;">
+                    
+                    <div class="contact-card">
+                        <div class="profile-avatar">👨‍🏫</div>
+                        <h2 class="contact-info-title">ભરત રાઠોડ</h2>
+                        <p class="contact-subtitle">મુખ્ય સંચાલક અને નવોદય નિષ્ણાત માર્ગદર્શક</p>
+                        
+                        <div class="phone-badge">📞 9265733860</div>
+                        
+                        <div>
+                            <a href="tel:9265733860" class="btn btn-live" style="border-radius: 8px; padding: 12px 30px;">📞 સીધો કોલ કરો</a>
+                        </div>
+                    </div>
+
+                    <div class="enquiry-form">
+                        <h3>📝 રૂબરૂ પૂછપરછ / એડમિશન ફોર્મ</h3>
+                        <form onsubmit="alert('તમારી વિગતો સફળતાપૂર્વક મોકલવામાં આવી છે. અમે ટૂંક સમયમાં સંપર્ક કરીશું!'); return false;">
+                            <div class="form-group">
+                                <label>વિદ્યાર્થીનું નામ:</label>
+                                <input type="text" placeholder="નામ લખો" required>
+                            </div>
+                            <div class="form-group">
+                                <label>મોબાઈલ નંબર:</label>
+                                <input type="tel" placeholder="૧૦ આંકડાનો ફોન નંબર" required>
+                            </div>
+                            <div class="form-group">
+                                <label>ધોરણ:</label>
+                                <input type="text" placeholder="દા.ત. ધોરણ ૪ અથવા ૫" required>
+                            </div>
+                            <div class="form-group">
+                                <label>તમારો પ્રશ્ન / મેસેજ:</label>
+                                <textarea rows="3" placeholder="તમારો પ્રશ્ન અહીં લખો..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">📤 વિગતો મોકલો</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sidebar-ad">
+<!-- સ્લાઇડ શો સ્ટાઇલ -->
+<style>
+    .slideshow-container { max-width: 600px; position: relative; margin: 20px auto; overflow: hidden; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+    .mySlides { display: none; animation: fadeEffect 1.5s; }
+    .mySlides img { width: 100%; height: 350px; object-fit: cover; }
+    .slide-text { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.6); color: white; text-align: center; padding: 12px; font-weight: bold; }
+    
+    @keyframes fadeEffect { from {opacity: .4} to {opacity: 1} }
+</style>
+
+<!-- સ્લાઇડ શો HTML -->
+<div class="slideshow-container">
+    <!-- સ્લાઇડ ૧ -->
+    <div class="mySlides">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGES9aW9e-98pi-V8jg3i4pAmJO-IuhwhwtQ&s" alt="વિદ્યાર્થી ૧">
+        <div class="slide-text">વર્ષ ૨૦૨૩ ના સફળ વિદ્યાર્થીઓ</div>
+    </div>
+    <!-- સ્લાઇડ ૨ -->
+    <div class="mySlides">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXI12a5ZOgzSBZ4w6ZTlsnP_HigOEj7-sUMA&s" alt="વિદ્યાર્થી ૨">
+        <div class="slide-text">વર્ષ ૨૦૨૪  ના સફળ વિદ્યાર્થીઓ</div>
+    </div>
+ <div class="mySlides">
+        <img src="https://images.freeimages.com/images/large-previews/612/stunning-beach-sunset-0410-5706653.jpg?fmt=webp&w=500" alt="વિદ્યાર્થી 3">
+        <div class="slide-text">વર્ષ ૨૦૨૫ ના સફળ વિદ્યાર્થીઓ</div>
+    </div>
+ <div class="mySlides">
+        <img src="https://cdn.pixabay.com/photo/2026/02/18/09/06/henning_w-nature-10130305_1280.jpg" alt="વિદ્યાર્થી 4">
+        <div class="slide-text">વર્ષ ૨૦૨૬  ના સફળ વિદ્યાર્થીઓ</div>
+    </div>
+    <!-- વધુ સ્લાઇડ ઉમેરવા માટે ઉપરનો બ્લોક અહીં કોપી કરી શકો છો -->
+</div>
+
+<!-- સ્લાઇડ શો JavaScript -->
+<script>
+    let slideIndex = 0;
+    showSlides();
+    function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}
+        slides[slideIndex-1].style.display = "block";
+        setTimeout(showSlides, 3000); // ૩ સેકન્ડનો સમય (૩૦૦૦ મિલિસેકન્ડ)
+    }
+</script>
+            <div class="ad-card">
+                <img src="https://help.apple.com/assets/68CC87B9CAAD76736901E52B/68CC87BBC2E039F703036A8A/en_GB/d1c53b6b8d4bae14b946fa9a54794550.png" alt="નવોદય ક્લાસ જાહેરાત">
+                <h3 style="color: var(--primary-dark); margin-bottom: 5px;">એડમિશન ઓપન (2026-27)</h3>
+                <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">ધોરણ ૪ અને ૫ ના વિદ્યાર્થીઓ માટે પ્રવેશ પ્રક્રિયા ચાલુ છે.</p>
+                <a href="https://chat.whatsapp.com/YOUR_LINK" target="_blank" class="btn btn-live" style="width: 100%; justify-content: center;">હમણાં જ રજીસ્ટ્રેશન કરાવો!</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 નવોદય ઓનલાઈન એજ્યુકેશન સિસ્ટમ. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function openTab(tabId, btn) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
