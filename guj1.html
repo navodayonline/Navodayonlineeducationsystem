@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ркирк╡рлЛркжркп ркнрк╛рк╖рк╛ ркХрк╕рлЛркЯрлА : рклркХрк░рлЛ - рлз</title>
+    <style>
+        /* Global Mobile Friendly Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            margin: 0;
+            padding: 15px 10px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-sizing: border-box;
+        }
+
+        .main-logo {
+            display: block;
+            margin: 0 auto 10px auto;
+            width: 90px;
+            height: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin: 5px 0;
+            font-size: 20px;
+            line-height: 1.3;
+        }
+        .header-info {
+            text-align: center;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        /* Registration Input Screen */
+        #nameScreen {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        .name-input {
+            padding: 12px;
+            width: 90%;
+            max-width: 340px;
+            font-size: 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            outline: none;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .name-input:focus {
+            border-color: #27ae60;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            display: none;
+        }
+        .progress-bar {
+            height: 10px;
+            width: 20%;
+            background-color: #27ae60;
+            transition: width 0.3s ease;
+        }
+
+        #quizForm {
+            display: none;
+        }
+        .question-block {
+            display: none; 
+            padding: 5px 0;
+        }
+        .question-block.active {
+            display: block; 
+        }
+
+        /* ЁЯУД рклркХрк░рк╛ ркорк╛ркЯрлЗркирлБркВ ркЦрк╛рк╕ ркмрлЛркХрлНрк╕ */
+        .passage-box {
+            background-color: #fff9db;
+            border-left: 5px solid #f1c40f;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: justify;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.02);
+        }
+        .passage-title {
+            font-weight: bold;
+            color: #b78a00;
+            margin-bottom: 8px;
+            font-size: 17px;
+        }
+        .vocab-box {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px dashed #e6c84c;
+            font-size: 14px;
+            color: #7f6000;
+        }
+
+        .question-text {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: #2c3e50;
+        }
+        .options-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .option-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 16px;
+            background: #fff;
+            border: 2px solid #dcdde1;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+            font-weight: 500;
+            font-size: 15px;
+        }
+        .option-label:hover {
+            background: #e8f8f5;
+            border-color: #27ae60;
+        }
+        .option-label input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        /* Navigation Buttons */
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-start {
+            background: #27ae60;
+            color: white;
+            font-size: 17px;
+            padding: 12px 35px;
+            width: 90%;
+            max-width: 340px;
+            margin-top: 10px;
+        }
+        .btn-start:hover {
+            background: #219653;
+        }
+        .btn-next {
+            background: #27ae60;
+            color: white;
+            flex-grow: 1;
+        }
+        .btn-next:hover {
+            background: #219653;
+        }
+        .btn-prev {
+            background: #95a5a6;
+            color: white;
+        }
+        .btn-prev:hover {
+            background: #7f8c8d;
+        }
+        .btn-submit {
+            background: #2980b9;
+            color: white;
+            flex-grow: 1;
+            display: none; 
+        }
+        .btn-submit:hover {
+            background: #217dbb;
+        }
+
+        /* Popup Box (рккрк░рк┐ркгрк╛рко ркмрлЛркХрлНрк╕) */
+        .result-popup {
+            display: none;
+            margin-top: 15px;
+            padding: 25px 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            line-height: 1.6;
+            border: 3px solid;
+            animation: popIn 0.4s ease;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .btn-cert-view {
+            background: #d4af37;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(212,175,55,0.3);
+            width: 100%;
+            max-width: 250px;
+            transition: background 0.2s;
+        }
+        .btn-cert-view:hover {
+            background: #bfa030;
+        }
+
+        /* Mobile Responsive Certificate Styling */
+        .certificate-box {
+            display: none;
+            margin-top: 25px;
+            padding: 30px 15px 25px 15px;
+            background: #fff;
+            border: 10px double #d4af37;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            background-image: radial-gradient(circle, #fffdf2 40%, #fffbf0 100%);
+            box-sizing: border-box;
+            width: 100%;
+            animation: popIn 0.4s ease;
+        }
+        .cert-header-title {
+            font-size: 21px;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 5px;
+            line-height: 1.2;
+            letter-spacing: 0.5px;
+        }
+        .certificate-title {
+            font-family: 'Georgia', serif;
+            font-size: 23px;
+            color: #d4af37;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 2px;
+            letter-spacing: 1px;
+        }
+        .certificate-sub {
+            font-size: 12px;
+            color: #7f8c8d;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .cert-text {
+            font-size: 14px;
+            color: #34495e;
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        .cert-name {
+            font-size: 22px;
+            color: #2c3e50;
+            font-weight: bold;
+            border-bottom: 2px dashed #d4af37;
+            display: inline-block;
+            padding: 0 15px;
+            margin: 10px 0;
+            font-style: italic;
+            max-width: 95%;
+            word-wrap: break-word;
+        }
+        .cert-topic {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .cert-score {
+            color: #2980b9;
+            font-weight: bold;
+        }
+        
+        .certificate-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 35px;
+            padding: 0 5px;
+        }
+        
+        .cert-footer-logo {
+            width: 70px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 5px;
+        }
+
+        .signature-block {
+            text-align: center;
+            font-size: 11px;
+            color: #34495e;
+            width: 165px;
+        }
+        .cursive-signature {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: #1a252f;
+            font-weight: bold;
+            margin-bottom: 2px;
+            letter-spacing: 1px;
+        }
+        .sig-line {
+            width: 100%;
+            border-bottom: 1px solid #7f8c8d;
+            margin: 3px auto 5px auto;
+        }
+
+        /* ЁЯПЖ Leaderboard Styles */
+        .leaderboard-box {
+            display: none;
+            margin-top: 30px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid #f1c40f;
+        }
+        .leaderboard-title {
+            text-align: center;
+            font-size: 18px;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .leaderboard-table th {
+            background-color: #f8f9fa;
+            color: #7f8c8d;
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .leaderboard-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #edf2f7;
+            color: #4a5568;
+        }
+        .rank-badge {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            border-radius: 50%;
+            font-weight: bold;
+            color: #fff;
+        }
+        .rank-1 { background-color: #f1c40f; } 
+        .rank-2 { background-color: #95a5a6; } 
+        .rank-3 { background-color: #e67e22; } 
+        .rank-other { color: #4a5568; font-weight: bold; }
+        .current-user-row {
+            background-color: #f0fff4 !important;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Top Header Area -->
+    <img src="https://i.ibb.co/gLmWRknG/logo.png" alt="Logo" class="main-logo">
+    <div id="quizHeaderBlock">
+        <h1>ркирк╡рлЛркжркп ркУркирк▓рк╛ркИрки ркПркЬрлНркпрлБркХрлЗрк╢рки рк╕рк┐рк╕рлНркЯрко</h1>
+        <div class="header-info">ркирк╡рлЛркжркп ркнрк╛рк╖рк╛ ркХрк╕рлЛркЯрлА : рклркХрк░рлЛ - рлз</div>
+    </div>
+    
+    <!-- Name, Mobile & District Input Screen -->
+    <div id="nameScreen">
+        <p style="font-size: 16px; font-weight: bold; color: #2c3e50; padding: 0 5px; margin-bottom: 20px;">рк╡рк┐ркжрлНркпрк╛рк░рлНркерлА ркорк┐ркдрлНрк░, ркЯрлЗрк╕рлНркЯ рк╢рк░рлВ ркХрк░ркдрк╛ рккрк╣рлЗрк▓рк╛ркВ ркдркорк╛рк░рлА рк╡рк┐ркЧркдрлЛ ркнрк░рлЛ:</p>
+        
+        <div class="input-group">
+            <input type="text" id="studentName" class="name-input" placeholder="ркдркорк╛рк░рлБркВ ркЖркЦрлБркВ ркирк╛рко рк▓ркЦрлЛ..." autocomplete="off">
+        </div>
+        
+        <div class="input-group">
+            <input type="tel" id="studentMobile" class="name-input" placeholder="ркдркорк╛рк░рлЛ рлзрлж ркЕркВркХркирлЛ ркорлЛркмрк╛ркИрк▓ ркиркВркмрк░..." maxlength="10" autocomplete="off">
+        </div>
+        
+        <div class="input-group">
+            <input type="text" id="studentDistrict" class="name-input" placeholder="ркдркорк╛рк░рк╛ ркЬрк┐рк▓рлНрк▓рк╛ркирлБркВ ркирк╛рко рк▓ркЦрлЛ..." autocomplete="off">
+        </div>
+        
+        <button type="button" class="btn btn-start" onclick="startQuiz()">ркЯрлЗрк╕рлНркЯ рк╢рк░рлВ ркХрк░рлЛ тЮФ</button>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Questions Form -->
+    <form id="quizForm">
+        
+        <!-- Q1 -->
+        <div class="question-block" id="q1_block">
+            <div class="passage-box">
+                <div class="passage-title">ЁЯУЛ рклркХрк░рлЛ рк╡рк╛ркВркЪрлЛ:</div>
+                ркорлЛрк░ ркнрк╛рк░ркдркирлБркВ рк░рк╛рк╖рлНркЯрлНрк░рлАркп рккркХрлНрк╖рлА ркЫрлЗ. ркдрлЗ ркмркзрк╛ рккркХрлНрк╖рлАркУркорк╛ркВ рк╕рлМркерлА рк╕рлБркВркжрк░ ркЫрлЗ. ркдрлЗркирк╛ ркорк╛ркерк╛ рккрк░ ркХрк▓ркЧрлА рк╣рлЛркп ркЫрлЗ ркЕркирлЗ ркдрлЗркирлА ркбрлЛркХ рк▓рк╛ркВркмрлА ркЕркирлЗ ркнрлВрк░рк╛ рк░ркВркЧркирлА рк╣рлЛркп ркЫрлЗ. ркорлЛрк░ркирк╛ рккрлАркВркЫрк╛ рк░ркВркЧркмрлЗрк░ркВркЧрлА ркЕркирлЗ рк▓рк╛ркВркмрк╛ рк╣рлЛркп ркЫрлЗ. ркЬрлНркпрк╛рк░рлЗ ркЖркХрк╛рк╢ркорк╛ркВ ркХрк╛рк│рк╛ рк╡рк╛ркжрк│рлЛ ркЫрк╡рк╛ркп ркЫрлЗ, ркдрлНркпрк╛рк░рлЗ ркорлЛрк░ ркХрк│рк╛ ркХрк░рлАркирлЗ ркирк╛ркЪрлЗ ркЫрлЗ. ркорлЛрк░ркирлЛ ркЕрк╡рк╛ркЬ 'ркЯрлЗрк╣рлВркВркХ-ркЯрлЗрк╣рлВркВркХ' ркЦрлВркм ркЬ ркорлАркарлЛ рк▓рк╛ркЧрлЗ ркЫрлЗ. ркорлЛрк░ рк╕рк╛рккркирлЛ ркжрлБрк╢рлНркорки ркЧркгрк╛ркп ркЫрлЗ. ркнркЧрк╡рк╛рки ркХрк╛рк░рлНркдрк┐ркХрлЗркпркирлБркВ рк╡рк╛рк╣рки рккркг ркорлЛрк░ ркЫрлЗ.
+                <div class="vocab-box">
+                    <b>ЁЯТб ркЕркШрк░рк╛ рк╢ркмрлНркжрлЛ:</b><br>
+                    тАв ркХрк▓ркЧрлА: ркорк╛ркерк╛ рккрк░ркирлЛ ркЪрлЛркЯрк▓рлЛ.<br>
+                    тАв ркХрк│рк╛: рккрлАркВркЫрк╛ рклрлЗрк▓рк╛рк╡рлАркирлЗ ркирк╛ркЪрк╡рлБркВ.
+                </div>
+            </div>
+            <div class="question-text">(1) ркнрк╛рк░ркдркирлБркВ рк░рк╛рк╖рлНркЯрлНрк░рлАркп рккркХрлНрк╖рлА ркХркпрлБркВ ркЫрлЗ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q1" value="A"> (A) рккрлЛрккркЯ</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> (B) ркХрк╛ркЧркбрлЛ</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> (C) ркЪркХрк▓рлА</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> (D) ркорлЛрк░</label>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-block" id="q2_block">
+            <div class="passage-box">
+                <div class="passage-title">ЁЯУЛ рклркХрк░рлЛ рк╡рк╛ркВркЪрлЛ:</div>
+                ркорлЛрк░ ркнрк╛рк░ркдркирлБркВ рк░рк╛рк╖рлНркЯрлНрк░рлАркп рккркХрлНрк╖рлА ркЫрлЗ. ркдрлЗ ркмркзрк╛ рккркХрлНрк╖рлАркУркорк╛ркВ рк╕рлМркерлА рк╕рлБркВркжрк░ ркЫрлЗ. ркдрлЗркирк╛ ркорк╛ркерк╛ рккрк░ ркХрк▓ркЧрлА рк╣рлЛркп ркЫрлЗ ркЕркирлЗ ркдрлЗркирлА ркбрлЛркХ рк▓рк╛ркВркмрлА ркЕркирлЗ ркнрлВрк░рк╛ рк░ркВркЧркирлА рк╣рлЛркп ркЫрлЗ. ркорлЛрк░ркирк╛ рккрлАркВркЫрк╛ рк░ркВркЧркмрлЗрк░ркВркЧрлА ркЕркирлЗ рк▓рк╛ркВркмрк╛ рк╣рлЛркп ркЫрлЗ. ркЬрлНркпрк╛рк░рлЗ ркЖркХрк╛рк╢ркорк╛ркВ ркХрк╛рк│рк╛ рк╡рк╛ркжрк│рлЛ ркЫрк╡рк╛ркп ркЫрлЗ, ркдрлНркпрк╛рк░рлЗ ркорлЛрк░ ркХрк│рк╛ ркХрк░рлАркирлЗ ркирк╛ркЪрлЗ ркЫрлЗ. ркорлЛрк░ркирлЛ ркЕрк╡рк╛ркЬ 'ркЯрлЗрк╣рлВркВркХ-ркЯрлЗрк╣рлВркВркХ' ркЦрлВркм ркЬ ркорлАркарлЛ рк▓рк╛ркЧрлЗ ркЫрлЗ. ркорлЛрк░ рк╕рк╛рккркирлЛ ркжрлБрк╢рлНркорки ркЧркгрк╛ркп ркЫрлЗ. ркнркЧрк╡рк╛рки ркХрк╛рк░рлНркдрк┐ркХрлЗркпркирлБркВ рк╡рк╛рк╣рки рккркг ркорлЛрк░ ркЫрлЗ.
+                <div class="vocab-box">
+                    <b>ЁЯТб ркЕркШрк░рк╛ рк╢ркмрлНркжрлЛ:</b><br>
+                    тАв ркХрк▓ркЧрлА: ркорк╛ркерк╛ рккрк░ркирлЛ ркЪрлЛркЯрк▓рлЛ.<br>
+                    тАв ркХрк│рк╛: рккрлАркВркЫрк╛ рклрлЗрк▓рк╛рк╡рлАркирлЗ ркирк╛ркЪрк╡рлБркВ.
+                </div>
+            </div>
+            <div class="question-text">(2) ркорлЛрк░ркирк╛ ркорк╛ркерк╛ рккрк░ рк╢рлБркВ рк╣рлЛркп ркЫрлЗ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q2" value="A"> (A) рк╢рлАркВркЧркбрк╛</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> (B) ркХрк▓ркЧрлА</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> (C) ркЯрлЛрккрлА</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> (D) рк╡рк╛рк│</label>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-block" id="q3_block">
+            <div class="passage-box">
+                <div class="passage-title">ЁЯУЛ рклркХрк░рлЛ рк╡рк╛ркВркЪрлЛ:</div>
+                ркорлЛрк░ ркнрк╛рк░ркдркирлБркВ рк░рк╛рк╖рлНркЯрлНрк░рлАркп рккркХрлНрк╖рлА ркЫрлЗ. ркдрлЗ ркмркзрк╛ рккркХрлНрк╖рлАркУркорк╛ркВ рк╕рлМркерлА рк╕рлБркВркжрк░ ркЫрлЗ. ркдрлЗркирк╛ ркорк╛ркерк╛ рккрк░ ркХрк▓ркЧрлА рк╣рлЛркп ркЫрлЗ ркЕркирлЗ ркдрлЗркирлА ркбрлЛркХ рк▓рк╛ркВркмрлА ркЕркирлЗ ркнрлВрк░рк╛ рк░ркВркЧркирлА рк╣рлЛркп ркЫрлЗ. ркорлЛрк░ркирк╛ рккрлАркВркЫрк╛ рк░ркВркЧркмрлЗрк░ркВркЧрлА ркЕркирлЗ рк▓рк╛ркВркмрк╛ рк╣рлЛркп ркЫрлЗ. ркЬрлНркпрк╛рк░рлЗ ркЖркХрк╛рк╢ркорк╛ркВ ркХрк╛рк│рк╛ рк╡рк╛ркжрк│рлЛ ркЫрк╡рк╛ркп ркЫрлЗ, ркдрлНркпрк╛рк░рлЗ ркорлЛрк░ ркХрк│рк╛ ркХрк░рлАркирлЗ ркирк╛ркЪрлЗ ркЫрлЗ. ркорлЛрк░ркирлЛ ркЕрк╡рк╛ркЬ 'ркЯрлЗрк╣рлВркВркХ-ркЯрлЗрк╣рлВркВркХ' ркЦрлВркм ркЬ ркорлАркарлЛ рк▓рк╛ркЧрлЗ ркЫрлЗ. ркорлЛрк░ рк╕рк╛рккркирлЛ ркжрлБрк╢рлНркорки ркЧркгрк╛ркп ркЫрлЗ. ркнркЧрк╡рк╛рки ркХрк╛рк░рлНркдрк┐ркХрлЗркпркирлБркВ рк╡рк╛рк╣рки рккркг ркорлЛрк░ ркЫрлЗ.
+                <div class="vocab-box">
+                    <b>ЁЯТб ркЕркШрк░рк╛ рк╢ркмрлНркжрлЛ:</b><br>
+                    тАв ркХрк▓ркЧрлА: ркорк╛ркерк╛ рккрк░ркирлЛ ркЪрлЛркЯрк▓рлЛ.<br>
+                    тАв ркХрк│рк╛: рккрлАркВркЫрк╛ рклрлЗрк▓рк╛рк╡рлАркирлЗ ркирк╛ркЪрк╡рлБркВ.
+                </div>
+            </div>
+            <div class="question-text">(3) ркорлЛрк░ ркХрлНркпрк╛рк░рлЗ ркирк╛ркЪрлЗ ркЫрлЗ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q3" value="A"> (A) ркдркбркХрк╛ркорк╛ркВ</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> (B) рк░рк╛ркдрлНрк░рлЗ</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> (C) рк╡рк╛ркжрк│рлЛ ркЫрк╡рк╛ркп ркдрлНркпрк╛рк░рлЗ</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> (D) рк╢рк┐ркпрк╛рк│рк╛ркорк╛ркВ</label>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-block" id="q4_block">
+            <div class="passage-box">
+                <div class="passage-title">ЁЯУЛ рклркХрк░рлЛ рк╡рк╛ркВркЪрлЛ:</div>
+                ркорлЛрк░ ркнрк╛рк░ркдркирлБркВ рк░рк╛рк╖рлНркЯрлНрк░рлАркп рккркХрлНрк╖рлА ркЫрлЗ. ркдрлЗ ркмркзрк╛ рккркХрлНрк╖рлАркУркорк╛ркВ рк╕рлМркерлА рк╕рлБркВркжрк░ ркЫрлЗ. ркдрлЗркирк╛ ркорк╛ркерк╛ рккрк░ ркХрк▓ркЧрлА рк╣рлЛркп ркЫрлЗ ркЕркирлЗ ркдрлЗркирлА ркбрлЛркХ рк▓рк╛ркВркмрлА ркЕркирлЗ ркнрлВрк░рк╛ рк░ркВркЧркирлА рк╣рлЛркп ркЫрлЗ. ркорлЛрк░ркирк╛ рккрлАркВркЫрк╛ рк░ркВркЧркмрлЗрк░ркВркЧрлА ркЕркирлЗ рк▓рк╛ркВркмрк╛ рк╣рлЛркп ркЫрлЗ. ркЬрлНркпрк╛рк░рлЗ ркЖркХрк╛рк╢ркорк╛ркВ ркХрк╛рк│рк╛ рк╡рк╛ркжрк│рлЛ ркЫрк╡рк╛ркп ркЫрлЗ, ркдрлНркпрк╛рк░рлЗ ркорлЛрк░ ркХрк│рк╛ ркХрк░рлАркирлЗ ркирк╛ркЪрлЗ ркЫрлЗ. ркорлЛрк░ркирлЛ ркЕрк╡рк╛ркЬ 'ркЯрлЗрк╣рлВркВркХ-ркЯрлЗрк╣рлВркВркХ' ркЦрлВркм ркЬ ркорлАркарлЛ рк▓рк╛ркЧрлЗ ркЫрлЗ. ркорлЛрк░ рк╕рк╛рккркирлЛ ркжрлБрк╢рлНркорки ркЧркгрк╛ркп ркЫрлЗ. ркнркЧрк╡рк╛рки ркХрк╛рк░рлНркдрк┐ркХрлЗркпркирлБркВ рк╡рк╛рк╣рки рккркг ркорлЛрк░ ркЫрлЗ.
+                <div class="vocab-box">
+                    <b>ЁЯТб ркЕркШрк░рк╛ рк╢ркмрлНркжрлЛ:</b><br>
+                    тАв ркХрк▓ркЧрлА: ркорк╛ркерк╛ рккрк░ркирлЛ ркЪрлЛркЯрк▓рлЛ.<br>
+                    тАв ркХрк│рк╛: рккрлАркВркЫрк╛ рклрлЗрк▓рк╛рк╡рлАркирлЗ ркирк╛ркЪрк╡рлБркВ.
+                </div>
+            </div>
+            <div class="question-text">(4) ркорлЛрк░ ркХрлЛркирлЛ ркжрлБрк╢рлНркорки ркЧркгрк╛ркп ркЫрлЗ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q4" value="A"> (A) ркЙркВркжрк░</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> (B) рк╕рк╛ркк</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> (C) ркмрк┐рк▓рк╛ркбрлА</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> (D) ркХрлВркдрк░рлЛ</label>
+            </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-block" id="q5_block">
+            <div class="passage-box">
+                <div class="passage-title">ЁЯУЛ рклркХрк░рлЛ рк╡рк╛ркВркЪрлЛ:</div>
+                ркорлЛрк░ ркнрк╛рк░ркдркирлБркВ рк░рк╛рк╖рлНркЯрлНрк░рлАркп рккркХрлНрк╖рлА ркЫрлЗ. ркдрлЗ ркмркзрк╛ рккркХрлНрк╖рлАркУркорк╛ркВ рк╕рлМркерлА рк╕рлБркВркжрк░ ркЫрлЗ. ркдрлЗркирк╛ ркорк╛ркерк╛ рккрк░ ркХрк▓ркЧрлА рк╣рлЛркп ркЫрлЗ ркЕркирлЗ ркдрлЗркирлА ркбрлЛркХ рк▓рк╛ркВркмрлА ркЕркирлЗ ркнрлВрк░рк╛ рк░ркВркЧркирлА рк╣рлЛркп ркЫрлЗ. ркорлЛрк░ркирк╛ рккрлАркВркЫрк╛ рк░ркВркЧркмрлЗрк░ркВркЧрлА ркЕркирлЗ рк▓рк╛ркВркмрк╛ рк╣рлЛркп ркЫрлЗ. ркЬрлНркпрк╛рк░рлЗ ркЖркХрк╛рк╢ркорк╛ркВ ркХрк╛рк│рк╛ рк╡рк╛ркжрк│рлЛ ркЫрк╡рк╛ркп ркЫрлЗ, ркдрлНркпрк╛рк░рлЗ ркорлЛрк░ ркХрк│рк╛ ркХрк░рлАркирлЗ ркирк╛ркЪрлЗ ркЫрлЗ. ркорлЛрк░ркирлЛ ркЕрк╡рк╛ркЬ 'ркЯрлЗрк╣рлВркВркХ-ркЯрлЗрк╣рлВркВркХ' ркЦрлВркм ркЬ ркорлАркарлЛ рк▓рк╛ркЧрлЗ ркЫрлЗ. ркорлЛрк░ рк╕рк╛рккркирлЛ ркжрлБрк╢рлНркорки ркЧркгрк╛ркп ркЫрлЗ. ркнркЧрк╡рк╛рки ркХрк╛рк░рлНркдрк┐ркХрлЗркпркирлБркВ рк╡рк╛рк╣рки рккркг ркорлЛрк░ ркЫрлЗ.
+                <div class="vocab-box">
+                    <b>ЁЯТб ркЕркШрк░рк╛ рк╢ркмрлНркжрлЛ:</b><br>
+                    тАв ркХрк▓ркЧрлА: ркорк╛ркерк╛ рккрк░ркирлЛ ркЪрлЛркЯрк▓рлЛ.<br>
+                    тАв ркХрк│рк╛: рккрлАркВркЫрк╛ рклрлЗрк▓рк╛рк╡рлАркирлЗ ркирк╛ркЪрк╡рлБркВ.
+                </div>
+            </div>
+            <div class="question-text">(5) ркорлЛрк░ ркХрлЛркирлБркВ рк╡рк╛рк╣рки ркЫрлЗ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q5" value="A"> (A) ркЧркгрлЗрк╢ркЬрлА</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> (B) рк╢рк┐рк╡ркЬрлА</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> (C) рк╣ркирлБркорк╛ркиркЬрлА</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> (D) ркХрк╛рк░рлНркдрк┐ркХрлЗркп</label>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+            <button type="button" class="btn btn-prev" id="btnPrev" onclick="changeQuestion(-1)" disabled>рккрк╛ркЫрк│</button>
+            <button type="button" class="btn btn-next" id="btnNext" onclick="changeQuestion(1)">ркЖркЧрк│ркирлЛ рккрлНрк░рк╢рлНрки</button>
+            <button type="button" class="btn btn-submit" id="btnSubmit" onclick="submitQuiz()">рккрк░рк┐ркгрк╛рко ркЬрлБркУ</button>
+        </div>
+    </form>
+
+    <!-- Popup Result Box -->
+    <div id="result" class="result-popup"></div>
+
+    <!-- Mobile View Optimized Certificate -->
+    <div id="certificate" class="certificate-box">
+        <div class="cert-header-title">ркирк╡рлЛркжркп ркУркирк▓рк╛ркИрки ркПркЬрлНркпрлБркХрлЗрк╢рки рк╕рк┐рк╕рлНркЯрко</div>
+        <div class="certificate-title">CERTIFICATE OF EXCELLENCE</div>
+        <div class="certificate-sub">рк╕ркирлНркорк╛рки рккркдрлНрк░</div>
+        
+        <p class="cert-text">ркЖркерлА рккрлНрк░ркорк╛ркгрк┐ркд ркХрк░рк╡рк╛ркорк╛ркВ ркЖрк╡рлЗ ркЫрлЗ ркХрлЗ рк╡рк┐ркжрлНркпрк╛рк░рлНркерлА/рк╡рк┐ркжрлНркпрк╛рк░рлНркерк┐ркирлА</p>
+        <div class="cert-name" id="certName">Bharat Rathod</div>
+        
+        <p class="cert-text">ркП ркУркирк▓рк╛ркИрки ркорлВрк▓рлНркпрк╛ркВркХрки ркХрк╕рлЛркЯрлА рк╡рк┐рк╖ркп: <b>ркЧрлБркЬрк░рк╛ркдрлА (ркнрк╛рк╖рк╛ ркХрк╕рлЛркЯрлА)</b> рклркХрк░рлЛ: <span class="cert-topic">рклркХрк░рлЛ - рлз (ркорлЛрк░)</span> ркорк╛ркВ</p>
+        <p class="cert-text">ркХрлБрк▓ рлл ркорк╛ркВркерлА <span class="cert-score" id="certScore">0</span> ркЧрлБркг ркорлЗрк│рк╡рлАркирлЗ ркЙркдрлНркХрлГрк╖рлНркЯ рккрлНрк░ркжрк░рлНрк╢рки ркХрк░рлЗрк▓ ркЫрлЗ.</p>
+        <p class="cert-text">ркЕркорлЗ ркдрлЗркоркирк╛ ркЙркЬрлНркЬрк╡рк│ ркнрк╡рк┐рк╖рлНркпркирлА ркХрк╛ркоркирк╛ ркХрк░рлАркП ркЫрлАркП.</p>
+        
+        <div class="certificate-footer">
+            <img src="https://i.ibb.co/gLmWRknG/logo.png" alt="Navodaya Online Seal" class="cert-footer-logo">
+            
+            <div class="signature-block">
+                <div class="cursive-signature">bharat rathod</div>
+                <div class="sig-line"></div>
+                <b>ркирк╡рлЛркжркп ркУркирк▓рк╛ркИрки ркПркЬрлНркпрлБркХрлЗрк╢рки рк╕рк┐рк╕рлНркЯрко</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- ЁЯПЖ рк▓рк╛ркИрк╡ ркУркирк▓рк╛ркИрки ркУрк▓ ркУрк╡рк░ рк░рлЗркирлНркХрк┐ркВркЧ рк▓рлАркбрк░ркмрлЛрк░рлНркб ркмрлЛркХрлНрк╕ -->
+    <div id="leaderboardBox" class="leaderboard-box">
+        <div class="leaderboard-title">ЁЯМН рк╕ркоркЧрлНрк░ ркЧрлБркЬрк░рк╛ркдркирлБркВ рк▓рк╛ркИрк╡ ркУркирк▓рк╛ркИрки рк░рлЗркирлНркХрк┐ркВркЧ ЁЯПЖ</div>
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>рк░рлЗркирлНркХ</th>
+                    <th>рк╡рк┐ркжрлНркпрк╛рк░рлНркерлАркирлБркВ ркирк╛рко</th>
+                    <th>ркЬрк┐рк▓рлНрк▓рлЛ</th>
+                    <th>рк╕рлНркХрлЛрк░</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboardBody">
+                <!-- ркУркирк▓рк╛ркИрки ркХрлНрк▓рк╛ркЙркб ркбрлЗркЯрк╛ ркЕрк╣рлАркВ рк▓рлЛркб ркерк╢рлЗ -->
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    let currentQuestion = 1;
+    const totalQuestions = 5; 
+    let userName = "";
+    let userMobile = "";
+    let userDistrict = "";
+    let finalCalculatedScore = 0;
+    
+    // ркЧрлБркЬрк░рк╛ркдрлА рклркХрк░рк╛ - рлз ркорк╛ркЯрлЗркирлА ркпрлБркирк┐ркХ ркУркирк▓рк╛ркИрки ркбрлЗркЯрк╛ркмрлЗркЭ ркХрлА
+    const CLOUD_BIN_ID = "navodaya_live_guj_passage1";
+
+    const answers = {
+        q1: "D", q2: "B", q3: "C", q4: "B", q5: "D"
+    };
+
+    function startQuiz() {
+        const nameInput = document.getElementById('studentName').value.trim();
+        const mobileInput = document.getElementById('studentMobile').value.trim();
+        const districtInput = document.getElementById('studentDistrict').value.trim();
+        
+        if (nameInput === "" || mobileInput === "" || districtInput === "") {
+            alert("ркХрлГрккрк╛ ркХрк░рлАркирлЗ ркЯрлЗрк╕рлНркЯ рк╢рк░рлВ ркХрк░ркдрк╛ рккрк╣рлЗрк▓рк╛ркВ ркирк╛рко, ркорлЛркмрк╛ркИрк▓ ркиркВркмрк░ ркЕркирлЗ ркЬрк┐рк▓рлНрк▓рлЛ ркдрлНрк░ркгрлЗркп рк╡рк┐ркЧркдрлЛ ркнрк░рлЛ!");
+            return;
+        }
+
+        if (mobileInput.length !== 10 || isNaN(mobileInput)) {
+            alert("ркХрлГрккрк╛ ркХрк░рлАркирлЗ рк╕рк╛ркЪрлЛ рлзрлж ркЕркВркХркирлЛ ркорлЛркмрк╛ркИрк▓ ркиркВркмрк░ рк▓ркЦрлЛ!");
+            return;
+        }
+        
+        userName = nameInput; 
+        userMobile = mobileInput;
+        userDistrict = districtInput;
+
+        document.getElementById('nameScreen').style.display = 'none'; 
+        document.getElementById('progressContainer').style.display = 'block'; 
+        document.getElementById('quizForm').style.display = 'block'; 
+        
+        document.getElementById('q1_block').classList.add('active');
+        updateProgressBar();
+    }
+
+    function updateProgressBar() {
+        const percentage = (currentQuestion / totalQuestions) * 100;
+        document.getElementById('progressBar').style.width = percentage + '%';
+    }
+
+    function changeQuestion(direction) {
+        document.getElementById(`q${currentQuestion}_block`).classList.remove('active');
+        currentQuestion += direction;
+        document.getElementById(`q${currentQuestion}_block`).classList.add('active');
+        
+        document.getElementById('btnPrev').disabled = (currentQuestion === 1);
+        
+        if (currentQuestion === totalQuestions) {
+            document.getElementById('btnNext').style.display = 'none';
+            document.getElementById('btnSubmit').style.display = 'block';
+        } else {
+            document.getElementById('btnNext').style.display = 'block';
+            document.getElementById('btnSubmit').style.display = 'none';
+        }
+        
+        updateProgressBar();
+    }
+
+    async function submitQuiz() {
+        let score = 0;
+        
+        for (let i = 1; i <= totalQuestions; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (selected && selected.value === answers[`q${i}`]) {
+                score++;
+            }
+        }
+        
+        finalCalculatedScore = score;
+
+        document.getElementById('quizForm').style.display = 'none';
+        document.getElementById('progressContainer').style.display = 'none';
+        document.getElementById('quizHeaderBlock').style.display = 'none';
+        
+        // --- ЁЯМН рк╕рк░рлНрк╡рк░ ркбрлЗркЯрк╛ркмрлЗркЭ рк╕рк┐ркирлНркХ (Local + Cloud Simulation) ---
+        let onlineRecords = JSON.parse(localStorage.getItem(CLOUD_BIN_ID)) || [];
+        
+        const currentRecord = {
+            name: userName,
+            district: userDistrict,
+            score: score,
+            timestamp: Date.now()
+        };
+        onlineRecords.push(currentRecord);
+        
+        // рк╕рлЛрк░рлНркЯрк┐ркВркЧ рк▓рлЛркЬрк┐ркХ
+        onlineRecords.sort((a, b) => b.score !== a.score ? b.score - a.score : a.timestamp - b.timestamp);
+        localStorage.setItem(CLOUD_BIN_ID, JSON.stringify(onlineRecords));
+
+        let onlineRank = onlineRecords.findIndex(r => r.timestamp === currentRecord.timestamp) + 1;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        
+        let feedbackMessage = "";
+        let certButtonHTML = "";
+        
+        // рлл рккрлНрк░рк╢рлНркирлЛ рк╣рлЛрк╡рк╛ркерлА рлорлж% ркПркЯрк▓рлЗ ркХрлЗ рлк ркХрлЗ ркдрлЗркерлА рк╡ркзрлБ ркорк╛рк░рлНркХ ркорк╛ркЯрлЗ рк╕рк░рлНркЯрк┐рклрк┐ркХрлЗркЯ ркорк│рк╢рлЗ
+        if (score >= 4) {
+            feedbackMessage = `ЁЯОЙ ркЕркжрлНркнрлБркд рккрлНрк░ркжрк░рлНрк╢рки ${userName}! ркЦрлВркм рк╕рк░рк╕ ркмрк╛рк│ркХ!`;
+            certButtonHTML = `<br><button type="button" class="btn-cert-view" onclick="showCertificateOnly()">ркорк╛рк░рлБркВ рккрлНрк░ркорк╛ркгрккркдрлНрк░ ркорлЗрк│рк╡рлЛ тЮФ</button>`;
+        } else if (score >= 3) {
+            feedbackMessage = `ЁЯСН рк╕рк░рк╕ рккрлНрк░ркпркдрлНрки ${userName}! рк╣ркЬрлБ ркерлЛркбрлА рк╡ркзрлБ ркорк╣рлЗркиркдркирлА ркЬрк░рлВрк░ ркЫрлЗ. рк╕рк░рлНркЯрк┐рклрк┐ркХрлЗркЯ ркорк╛ркЯрлЗ рлк ркХрлЗ рк╡ркзрлБ ркорк╛рк░рлНркХ ркЬрк░рлВрк░рлА ркЫрлЗ.`;
+        } else {
+            feedbackMessage = `тЬНя╕П ркХрлЛркИ рк╡рк╛ркВркзрлЛ ркирк╣рлАркВ ${userName}, рклркХрк░рлЛ рклрк░рлАркерлА рк╢рк╛ркВркдрк┐ркерлА рк╡рк╛ркВркЪрлАркирлЗ рк╡ркзрлБ рккрлНрк░рлЗркХрлНркЯрк┐рк╕ ркХрк░рлЛ!`;
+        }
+
+        resultDiv.innerHTML = `ЁЯПБ ркЯрлЗрк╕рлНркЯркирлБркВ рккрк░рк┐ркгрк╛рко ЁЯПБ<br><br>` +
+            `<span style="color: #2c3e50; font-size: 18px;">рк╡рк┐ркжрлНркпрк╛рк░рлНркерлА: <b>${userName}</b> (${userDistrict})</span><br>` +
+            `<span style="color: #e67e22; font-size: 18px;">ЁЯМН ркдркорк╛рк░рлЛ ркУркирк▓рк╛ркИрки рк▓рк╛ркИрк╡ рк░рлЗркирлНркХ: <b>#${onlineRank}</b></span><br>` +
+            `ркдркорк╛рк░рлЛ рк╕рлНркХрлЛрк░: <span style="font-size: 24px; color:#27ae60;"><b>${score} / ${totalQuestions}</b></span><br><br>` +
+            `${feedbackMessage}` + certButtonHTML;
+            
+        resultDiv.style.backgroundColor = score >= 4 ? "#d4edda" : "#f8d7da";
+        resultDiv.style.borderColor = score >= 4 ? "#c3e6cb" : "#f5c6cb";
+        resultDiv.style.color = score >= 4 ? "#155724" : "#721c24";
+        
+        renderOnlineLeaderboard(onlineRecords, currentRecord.timestamp);
+        sendResponseToEmail(score);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderOnlineLeaderboard(records, currentTimestamp) {
+        const tbody = document.getElementById('leaderboardBody');
+        tbody.innerHTML = "";
+        
+        records.forEach((record, index) => {
+            const rank = index + 1;
+            let rankHTML = "";
+            
+            if (rank === 1) rankHTML = `<span class="rank-badge rank-1">${rank}</span>`;
+            else if (rank === 2) rankHTML = `<span class="rank-badge rank-2">${rank}</span>`;
+            else if (rank === 3) rankHTML = `<span class="rank-badge rank-3">${rank}</span>`;
+            else rankHTML = `<span class="rank-other">${rank}</span>`;
+            
+            const row = document.createElement('tr');
+            if (record.timestamp === currentTimestamp) {
+                row.classList.add('current-user-row');
+            }
+            
+            row.innerHTML = `
+                <td>${rankHTML}</td>
+                <td style="text-align:left;">${record.name}</td>
+                <td>${record.district}</td>
+                <td><b>${record.score} / 5</b></td>
+            `;
+            tbody.appendChild(row);
+        });
+        
+        document.getElementById('leaderboardBox').style.display = 'block';
+    }
+
+    function showCertificateOnly() {
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('certName').innerText = userName;
+        document.getElementById('certScore').innerText = finalCalculatedScore;
+        document.getElementById('certificate').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function sendResponseToEmail(finalScore) {
+        const myEmail = "navodayonline@gmail.com"; 
+        
+        const formData = new FormData();
+        formData.append("рк╡рк┐ркжрлНркпрк╛рк░рлНркерлАркирлБркВ ркирк╛рко", userName);
+        formData.append("ркорлЛркмрк╛ркИрк▓ ркиркВркмрк░", userMobile);
+        formData.append("ркЬрк┐рк▓рлНрк▓рлЛ", userDistrict);
+        formData.append("ркорлЗрк│рк╡рлЗрк▓ ркЧрлБркг", finalScore + " / 5");
+        formData.append("ркЯрлЗрк╕рлНркЯ ркирк╛рко", "ркЧрлБркЬрк░рк╛ркдрлА рклркХрк░рлЛ - рлз (ркорлЛрк░)");
+
+        fetch(`https://formspree.io/f/` + btoa(myEmail), {
+            method: "POST",
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).catch(error => console.log('Email backend network log:', error));
+    }
+</script>
+
+</body
+</html>
