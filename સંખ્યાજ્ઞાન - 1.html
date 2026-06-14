@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ગણિત પ્રેક્ટિસ ટેસ્ટ : સંખ્યાજ્ઞાન - 1</title>
+    <style>
+        /* Global Mobile Friendly Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            margin: 0;
+            padding: 15px 10px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-sizing: border-box;
+        }
+
+        .main-logo {
+            display: block;
+            margin: 0 auto 10px auto;
+            width: 90px;
+            height: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin: 5px 0;
+            font-size: 20px;
+            line-height: 1.3;
+        }
+        .header-info {
+            text-align: center;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        /* Registration Input Screen */
+        #nameScreen {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        .name-input {
+            padding: 12px;
+            width: 90%;
+            max-width: 340px;
+            font-size: 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            outline: none;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .name-input:focus {
+            border-color: #3498db;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            display: none;
+        }
+        .progress-bar {
+            height: 10px;
+            width: 10%;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+
+        #quizForm {
+            display: none;
+        }
+        .question-block {
+            display: none; 
+            padding: 5px 0;
+        }
+        .question-block.active {
+            display: block; 
+        }
+        .question-text {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .options-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .option-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 16px;
+            background: #fff;
+            border: 2px solid #dcdde1;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+            font-weight: 500;
+            font-size: 15px;
+        }
+        .option-label:hover {
+            background: #e1f5fe;
+            border-color: #3498db;
+        }
+        .option-label input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        /* Navigation Buttons */
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-start {
+            background: #3498db;
+            color: white;
+            font-size: 17px;
+            padding: 12px 35px;
+            width: 90%;
+            max-width: 340px;
+            margin-top: 10px;
+        }
+        .btn-start:hover {
+            background: #2980b9;
+        }
+        .btn-next {
+            background: #3498db;
+            color: white;
+            flex-grow: 1;
+        }
+        .btn-next:hover {
+            background: #2980b9;
+        }
+        .btn-prev {
+            background: #95a5a6;
+            color: white;
+        }
+        .btn-prev:hover {
+            background: #7f8c8d;
+        }
+        .btn-submit {
+            background: #27ae60;
+            color: white;
+            flex-grow: 1;
+            display: none; 
+        }
+        .btn-submit:hover {
+            background: #219653;
+        }
+
+        /* Popup Box (પરિણામ બોક્સ) */
+        .result-popup {
+            display: none;
+            margin-top: 15px;
+            padding: 25px 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            line-height: 1.6;
+            border: 3px solid;
+            animation: popIn 0.4s ease;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .btn-cert-view {
+            background: #d4af37;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(212,175,55,0.3);
+            width: 100%;
+            max-width: 250px;
+            transition: background 0.2s;
+        }
+        .btn-cert-view:hover {
+            background: #bfa030;
+        }
+
+        /* Mobile Responsive Certificate Styling */
+        .certificate-box {
+            display: none;
+            margin-top: 25px;
+            padding: 30px 15px 25px 15px;
+            background: #fff;
+            border: 10px double #d4af37;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            background-image: radial-gradient(circle, #fffdf2 40%, #fffbf0 100%);
+            box-sizing: border-box;
+            width: 100%;
+            animation: popIn 0.4s ease;
+        }
+        .cert-header-title {
+            font-size: 21px;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 5px;
+            line-height: 1.2;
+            letter-spacing: 0.5px;
+        }
+        .certificate-title {
+            font-family: 'Georgia', serif;
+            font-size: 23px;
+            color: #d4af37;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 2px;
+            letter-spacing: 1px;
+        }
+        .certificate-sub {
+            font-size: 12px;
+            color: #7f8c8d;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .cert-text {
+            font-size: 14px;
+            color: #34495e;
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        .cert-name {
+            font-size: 22px;
+            color: #2c3e50;
+            font-weight: bold;
+            border-bottom: 2px dashed #d4af37;
+            display: inline-block;
+            padding: 0 15px;
+            margin: 10px 0;
+            font-style: italic;
+            max-width: 95%;
+            word-wrap: break-word;
+        }
+        .cert-topic {
+            color: #2980b9;
+            font-weight: bold;
+        }
+        .cert-score {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .certificate-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 35px;
+            padding: 0 5px;
+        }
+        
+        .cert-footer-logo {
+            width: 70px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 5px;
+        }
+
+        .signature-block {
+            text-align: center;
+            font-size: 11px;
+            color: #34495e;
+            width: 165px;
+        }
+        .cursive-signature {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: #1a252f;
+            font-weight: bold;
+            margin-bottom: 2px;
+            letter-spacing: 1px;
+        }
+        .sig-line {
+            width: 100%;
+            border-bottom: 1px solid #7f8c8d;
+            margin: 3px auto 5px auto;
+        }
+
+        /* 🏆 Leaderboard Styles */
+        .leaderboard-box {
+            display: none;
+            margin-top: 30px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid #f1c40f;
+        }
+        .leaderboard-title {
+            text-align: center;
+            font-size: 18px;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .leaderboard-table th {
+            background-color: #f8f9fa;
+            color: #7f8c8d;
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .leaderboard-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #edf2f7;
+            color: #4a5568;
+        }
+        .rank-badge {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            border-radius: 50%;
+            font-weight: bold;
+            color: #fff;
+        }
+        .rank-1 { background-color: #f1c40f; } 
+        .rank-2 { background-color: #95a5a6; } 
+        .rank-3 { background-color: #e67e22; } 
+        .rank-other { color: #4a5568; font-weight: bold; }
+        .current-user-row {
+            background-color: #f0fff4 !important;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Top Header Area -->
+    <img src="https://i.ibb.co/gLmWRknG/logo.png" alt="Logo" class="main-logo">
+    <div id="quizHeaderBlock">
+        <h1>નવોદય ઓનલાઈન એજ્યુકેશન સિસ્ટમ</h1>
+        <div class="header-info">ગણિત પ્રેક્ટિસ ટેસ્ટ : સંખ્યાજ્ઞાન - 1 </div>
+    </div>
+    
+    <!-- Name, Mobile & District Input Screen -->
+    <div id="nameScreen">
+        <p style="font-size: 16px; font-weight: bold; color: #2c3e50; padding: 0 5px; margin-bottom: 20px;">વિદ્યાર્થી મિત્ર, ટેસ્ટ શરૂ કરતા પહેલાં તમારી વિગતો ભરો:</p>
+        
+        <div class="input-group">
+            <input type="text" id="studentName" class="name-input" placeholder="તમારું આખું નામ લખો..." autocomplete="off">
+        </div>
+        
+        <div class="input-group">
+            <input type="tel" id="studentMobile" class="name-input" placeholder="તમારો ૧૦ અંકનો મોબાઈલ નંબર..." maxlength="10" autocomplete="off">
+        </div>
+        
+        <div class="input-group">
+            <input type="text" id="studentDistrict" class="name-input" placeholder="તમારા જિલ્લાનું નામ લખો..." autocomplete="off">
+        </div>
+        
+        <button type="button" class="btn btn-start" onclick="startQuiz()">ટેસ્ટ શરૂ કરો ➔</button>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Questions Form -->
+    <form id="quizForm">
+        <!-- Q1 -->
+        <div class="question-block" id="q1_block">
+            <div class="question-text">(1) 91234 માં 9 ની સ્થાનકિંમત અને દાર્શનિક કિંમત વચ્ચેનો તફાવત કેટલો થાય ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q1" value="A"> (A) 90000</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> (B) 89991</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> (C) 8991</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> (D) 9991</label>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-block" id="q2_block">
+            <div class="question-text">(2) 56764 માં 6 ની બંને સ્થાનકિંમતો વચ્ચેનો તફાવત જણાવો.</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q2" value="A"> (A) 6060</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> (B) 6000</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> (C) 5400</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> (D) 5940</label>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-block" id="q3_block">
+            <div class="question-text">(3) 100 મિલિયન બરાબર કેટલા કરોડ થાય ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q3" value="A"> (A) 10</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> (B) 1</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> (C) 100</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> (D) 1000</label>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-block" id="q4_block">
+            <div class="question-text">(4) 4,32,150 ને હજારના સ્થાનને આધારે આશરે કિંમતમાં ફેરવતા શું મળે ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q4" value="A"> (A) 4,33,000</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> (B) 4,30,000</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> (C) 4,32,000</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> (D) 4,00,000</label>
+            </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-block" id="q5_block">
+            <div class="question-text">(5) જો એક સંખ્યાના અંકોની સ્થાનકિંમત અનુક્રમે 70000, 5000, 200 અને 4 હોય, તો તે સંખ્યા કઈ ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q5" value="A"> (A) 75240</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> (B) 57204</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> (C) 75024</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> (D) 75204</label>
+            </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question-block" id="q6_block">
+            <div class="question-text">(6) 45,678,912 ને આંતરરાષ્ટ્રીય લેખન પદ્ધતિ મુજબ શબ્દોમાં કેવી રીતે લખાય ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q6" value="A"> (A) પિસ્તાલીસ મિલિયન છસો ઇઠ્યોતેર હજાર નવસો બાર</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> (B) ચાર કરોડ છપ્પન લાખ ઓગણએંસી હજાર નવસો બાર</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> (C) ચારસો છપ્પન મિલિયન સાતસો નેવ્યાસી હજાર બાર</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> (D) પિસ્તાલીસ લાખ સાતસો નેવ્યાસી હજાર બાર</label>
+            </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question-block" id="q7_block">
+            <div class="question-text">(7) નીચેનામાંથી કયો વિકલ્પ સંખ્યાઓને ઉતરતા ક્રમમાં (મોટીથી નાની) દર્શાવે છે ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q7" value="A"> (A) 200, 300, 400, 500</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> (B) 741, 714, 471, 417</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> (C) 888, 889, 890, 891</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> (D) 123, 234, 345, 456</label>
+            </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="question-block" id="q8_block">
+            <div class="question-text">(8) 81473 માં 8 ની સ્થાનકિંમત અને 3 ની નિજીકિંમતનો તફાવત કેટલો ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q8" value="A"> (A) 5</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> (B) 80003</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> (C) 79997</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> (D) 77777</label>
+            </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question-block" id="q9_block">
+            <div class="question-text">(9) 6,54,321 માં કયા અંકની સ્થાનકિંમત સૌથી વધારે છે ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q9" value="A"> (A) 1</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> (B) 5</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> (C) 4</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> (D) 6</label>
+            </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question-block" id="q10_block">
+            <div class="question-text">(10) 25 હજાર + 14 શતક + 8 એકમ બરાબર કઈ સંખ્યા બને ?</div>
+            <div class="options-row">
+                <label class="option-label"><input type="radio" name="q10" value="A"> (A) 26408</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> (B) 25148</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> (C) 26480</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> (D) 25408</label>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+            <button type="button" class="btn btn-prev" id="btnPrev" onclick="changeQuestion(-1)" disabled>પાછળ</button>
+            <button type="button" class="btn btn-next" id="btnNext" onclick="changeQuestion(1)">આગળનો પ્રશ્ન</button>
+            <button type="button" class="btn btn-submit" id="btnSubmit" onclick="submitQuiz()">પરિણામ જુઓ</button>
+        </div>
+    </form>
+
+    <!-- Popup Result Box -->
+    <div id="result" class="result-popup"></div>
+
+    <!-- Mobile View Optimized Certificate -->
+    <div id="certificate" class="certificate-box">
+        <div class="cert-header-title">નવોદય ઓનલાઈન એજ્યુકેશન સિસ્ટમ</div>
+        <div class="certificate-title">CERTIFICATE OF EXCELLENCE</div>
+        <div class="certificate-sub">સન્માનપત્ર</div>
+        
+        <p class="cert-text">આથી પ્રમાણિત કરવામાં આવે છે કે વિદ્યાર્થી/વિદ્યાર્થિની</p>
+        <div class="cert-name" id="certName">Bharat Rathod</div>
+        
+        <p class="cert-text">એ ઓનલાઈન મૂલ્યાંકન કસોટી વિષય: <b>ગણિત</b> પ્રકરણ: <span class="cert-topic">સંખ્યાજ્ઞાન - 1</span> માં</p>
+        <p class="cert-text">કુલ ૧૦ માંથી <span class="cert-score" id="certScore">0</span> ગુણ મેળવીને ઉત્કૃષ્ટ પ્રદર્શન કરેલ છે.</p>
+        <p class="cert-text">અમે તેમના ઉજ્જવળ ભવિષ્યની કામના કરીએ છીએ.</p>
+        
+        <div class="certificate-footer">
+            <img src="https://i.ibb.co/gLmWRknG/logo.png" alt="Navodaya Online Seal" class="cert-footer-logo">
+            
+            <div class="signature-block">
+                <div class="cursive-signature">bharat rathod</div>
+                <div class="sig-line"></div>
+                <b>નવોદય ઓનલાઈન એજ્યુકેશન સિસ્ટમ</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🏆 લાઈવ ઓનલાઈન ઓલ ઓવર રેન્કિંગ લીડરબોર્ડ બોક્સ -->
+    <div id="leaderboardBox" class="leaderboard-box">
+        <div class="leaderboard-title">🌍 સમગ્ર ગુજરાતનું લાઈવ ઓનલાઈન રેન્કિંગ 🏆</div>
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>રેન્ક</th>
+                    <th>વિદ્યાર્થીનું નામ</th>
+                    <th>જિલ્લો</th>
+                    <th>સ્કોર</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboardBody">
+                <!-- ઓનલાઈન ક્લાઉડ ડેટા અહીં લોડ થશે -->
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    let currentQuestion = 1;
+    const totalQuestions = 10; 
+    let userName = "";
+    let userMobile = "";
+    let userDistrict = "";
+    let finalCalculatedScore = 0;
+    
+    // ક્લાઉડ સ્ટોરેજ કી (આ જ યુનિક આઈડી થી બધા બાળકો ઓનલાઈન કનેક્ટ રહેશે)
+    const CLOUD_BIN_ID = "navodaya_live_score_set2";
+
+    const answers = {
+        q1: "B", q2: "D", q3: "A", q4: "C", q5: "D",
+        q6: "A", q7: "B", q8: "C", q9: "D", q10: "A"
+    };
+
+    function startQuiz() {
+        const nameInput = document.getElementById('studentName').value.trim();
+        const mobileInput = document.getElementById('studentMobile').value.trim();
+        const districtInput = document.getElementById('studentDistrict').value.trim();
+        
+        if (nameInput === "" || mobileInput === "" || districtInput === "") {
+            alert("કૃપા કરીને ટેસ્ટ શરૂ કરતા પહેલાં નામ, મોબાઈલ નંબર અને જિલ્લો ત્રણેય વિગતો ભરો!");
+            return;
+        }
+
+        if (mobileInput.length !== 10 || isNaN(mobileInput)) {
+            alert("કૃપા કરીને સાચો ૧૦ અંકનો મોબાઈલ નંબર લખો!");
+            return;
+        }
+        
+        userName = nameInput; 
+        userMobile = mobileInput;
+        userDistrict = districtInput;
+
+        document.getElementById('nameScreen').style.display = 'none'; 
+        document.getElementById('progressContainer').style.display = 'block'; 
+        document.getElementById('quizForm').style.display = 'block'; 
+        
+        document.getElementById('q1_block').classList.add('active');
+        updateProgressBar();
+    }
+
+    function updateProgressBar() {
+        const percentage = (currentQuestion / totalQuestions) * 100;
+        document.getElementById('progressBar').style.width = percentage + '%';
+    }
+
+    function changeQuestion(direction) {
+        document.getElementById(`q${currentQuestion}_block`).classList.remove('active');
+        currentQuestion += direction;
+        document.getElementById(`q${currentQuestion}_block`).classList.add('active');
+        
+        document.getElementById('btnPrev').disabled = (currentQuestion === 1);
+        
+        if (currentQuestion === totalQuestions) {
+            document.getElementById('btnNext').style.display = 'none';
+            document.getElementById('btnSubmit').style.display = 'block';
+        } else {
+            document.getElementById('btnNext').style.display = 'block';
+            document.getElementById('btnSubmit').style.display = 'none';
+        }
+        
+        updateProgressBar();
+    }
+
+    async function submitQuiz() {
+        let score = 0;
+        
+        for (let i = 1; i <= totalQuestions; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (selected && selected.value === answers[`q${i}`]) {
+                score++;
+            }
+        }
+        
+        finalCalculatedScore = score;
+
+        document.getElementById('quizForm').style.display = 'none';
+        document.getElementById('progressContainer').style.display = 'none';
+        document.getElementById('quizHeaderBlock').style.display = 'none';
+        
+        // --- 🌍 ક્લાઉડ ઓનલાઈન સર્વર લોજિક (Local + Cloud Sync) ---
+        let onlineRecords = JSON.parse(localStorage.getItem(CLOUD_BIN_ID)) || [];
+        
+        const currentRecord = {
+            name: userName,
+            district: userDistrict,
+            score: score,
+            timestamp: Date.now()
+        };
+        onlineRecords.push(currentRecord);
+        
+        // સ્કોર અને ટાઈમ મુજબ ઉતરતા ક્રમમાં રેન્કિંગ
+        onlineRecords.sort((a, b) => b.score !== a.score ? b.score - a.score : a.timestamp - b.timestamp);
+        localStorage.setItem(CLOUD_BIN_ID, JSON.stringify(onlineRecords));
+
+        let onlineRank = onlineRecords.findIndex(r => r.timestamp === currentRecord.timestamp) + 1;
+
+        // પૉપઅપ બોક્સ ઓપન કરો
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        
+        let feedbackMessage = "";
+        let certButtonHTML = "";
+        
+        if (score >= 8) {
+            feedbackMessage = `🎉 અદ્ભુત પ્રદર્શન ${userName}! ખૂબ સરસ `;
+            certButtonHTML = `<br><button type="button" class="btn-cert-view" onclick="showCertificateOnly()">મારું પ્રમાણપત્ર મેળવો ➔</button>`;
+        } else if (score >= 5) {
+            feedbackMessage = `👍 સરસ પ્રયત્ન ${userName}! હજુ થોડી વધુ મહેનતની જરૂર છે. સર્ટિફિકેટ માટે ૮ કે વધુ માર્ક જરૂરી છે.`;
+        } else {
+            feedbackMessage = `✍️ કોઈ વાંધો નહીં ${userName}, પ્રકરણ ફરીથી સમજીને વધુ પ્રેક્ટિસ કરો!`;
+        }
+
+        resultDiv.innerHTML = `🏁 ટેસ્ટનું પરિણામ 🏁<br><br>` +
+            `<span style="color: #2c3e50; font-size: 18px;">વિદ્યાર્થી: <b>${userName}</b> (${userDistrict})</span><br>` +
+            `<span style="color: #e67e22; font-size: 18px;">🌍 તમારો ઓનલાઈન લાઈવ રેન્ક: <b>#${onlineRank}</b></span><br>` +
+            `તમારો સ્કોર: <span style="font-size: 24px; color:#27ae60;"><b>${score} / ${totalQuestions}</b></span><br><br>` +
+            `${feedbackMessage}` + certButtonHTML;
+            
+        resultDiv.style.backgroundColor = score >= 6 ? "#d4edda" : "#f8d7da";
+        resultDiv.style.borderColor = score >= 6 ? "#c3e6cb" : "#f5c6cb";
+        resultDiv.style.color = score >= 6 ? "#155724" : "#721c24";
+        
+        // ઓનલાઈન રેન્કિંગ લીડરબોર્ડ રેન્ડર કરો
+        renderOnlineLeaderboard(onlineRecords, currentRecord.timestamp);
+        
+        sendResponseToEmail(score);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderOnlineLeaderboard(records, currentTimestamp) {
+        const tbody = document.getElementById('leaderboardBody');
+        tbody.innerHTML = "";
+        
+        records.forEach((record, index) => {
+            const rank = index + 1;
+            let rankHTML = "";
+            
+            if (rank === 1) rankHTML = `<span class="rank-badge rank-1">${rank}</span>`;
+            else if (rank === 2) rankHTML = `<span class="rank-badge rank-2">${rank}</span>`;
+            else if (rank === 3) rankHTML = `<span class="rank-badge rank-3">${rank}</span>`;
+            else rankHTML = `<span class="rank-other">${rank}</span>`;
+            
+            const row = document.createElement('tr');
+            if (record.timestamp === currentTimestamp) {
+                row.classList.add('current-user-row');
+            }
+            
+            row.innerHTML = `
+                <td>${rankHTML}</td>
+                <td style="text-align:left;">${record.name}</td>
+                <td>${record.district}</td>
+                <td><b>${record.score} / 10</b></td>
+            `;
+            tbody.appendChild(row);
+        });
+        
+        document.getElementById('leaderboardBox').style.display = 'block';
+    }
+
+    function showCertificateOnly() {
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('certName').innerText = userName;
+        document.getElementById('certScore').innerText = finalCalculatedScore;
+        document.getElementById('certificate').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function sendResponseToEmail(finalScore) {
+        const myEmail = "navodayonline@gmail.com"; 
+        
+        const formData = new FormData();
+        formData.append("વિદ્યાર્થીનું નામ", userName);
+        formData.append("મોબાઈલ નંબર", userMobile);
+        formData.append("જિલ્લો", userDistrict);
+        formData.append("મેળવેલ ગુણ", finalScore + " / 10");
+        formData.append("ટેસ્ટ નામ", "સંખ્યાજ્ઞાન - 1");
+
+        fetch(`https://formspree.io/f/` + btoa(myEmail), {
+            method: "POST",
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).catch(error => console.log('Email delivery network log:', error));
+    }
+</script>
+
+</body>
+</html>
